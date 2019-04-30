@@ -1,15 +1,10 @@
-Camel Java Router Project
-=========================
-
-To build this project use
-
-    mvn install
-
-To run this project from within Maven use
-
-    mvn exec:java
-
-For more help see the Apache Camel documentation
-
-    http://camel.apache.org/
-
+1. 目标
+提供通用方便的可监控的线程池
+2. 设计
+通过在原有ThreadPoolFactory基础上进行扩展。
+线程池包含元数据信息;
+线程池监控者通过处理元数据信息,生成可监控的web图表;
+有问题的线程进行可以通过外部关闭;
+线程池部分元数据信息支持动态修改;
+3. 实现
+暂无。
