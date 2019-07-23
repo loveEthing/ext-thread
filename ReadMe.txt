@@ -7,4 +7,10 @@
 有问题的线程进行可以通过外部关闭;
 线程池部分元数据信息支持动态修改;
 3. 实现
-暂无。
+CommonExecutorService接口 继承 ExecutorService接口，并提供更多通用的查询接口，并包装了 执行任务的三个方法；
+CommonThreadPoolExecutor继承 ThreadPoolExecutor类 并实现CommonExecutorService接口，并增加一些数据统计功能；
+CommonThreadPoolFactory类 担当 java.util.concurrent.Executors 的角色，负责创建CommonExecutorService线程池，相对于Executors, CommonThreadPoolFactory类提供了更加简洁通过的创建线程池方法。
+ThreadPoolMetadata 充当线程池的 元数据信息，使监控更加便捷。
+
+
+
