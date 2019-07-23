@@ -1,12 +1,11 @@
-package com.sunlight;
-
-import java.util.concurrent.RejectedExecutionHandler;
+package com.sunlight.thread;
 
 public class ThreadPoolMetadata {
 
+    private String poolName;   //线程池名称
     private int corePoolSize;  //核心线程池大小
     private int maxPoolSize;   //最大线程池大小
-    private long keepAliveTime; //线程最大空闲时间
+    private long keepAliveTime; //线程最大空闲时间,时间单位为毫秒
     private boolean allowCoreThreadTimeout; //是否给 核心线程 安排 最大空闲时间
 
     private int activeCount; //当前活动的线程数(执行中的任务数)
@@ -14,17 +13,28 @@ public class ThreadPoolMetadata {
     private int largestPoolSize; //曾达到过的最大线程池大小
     private long completedTaskCount; // 完成过的任务数量
     private int waitingTaskCount; //等待执行的任务数
+    private int rejectedTaskCount; //被拒绝的任务数量
 
     private long avgExecuteTime;  //线程池任务执行的平均时间
 
-    private RejectedExecutionHandler rejectedExecutionHandler; // 任务拒绝策略
+    private int alarmThreshold;   //任务执行时间 告警阈值, 时间单位为 毫秒
+    private int overAlarmThresholdTaskCount; // 任务执行时间 超过 告警阈值的数量
 
+    private int exceptionCount; // 任务执行 异常数量
+
+    public String getPoolName() {
+        return poolName;
+    }
+
+    void setPoolName(String poolName) {
+        this.poolName = poolName;
+    }
 
     public int getCorePoolSize() {
         return corePoolSize;
     }
 
-    public void setCorePoolSize(int corePoolSize) {
+    void setCorePoolSize(int corePoolSize) {
         this.corePoolSize = corePoolSize;
     }
 
@@ -32,7 +42,7 @@ public class ThreadPoolMetadata {
         return maxPoolSize;
     }
 
-    public void setMaxPoolSize(int maxPoolSize) {
+    void setMaxPoolSize(int maxPoolSize) {
         this.maxPoolSize = maxPoolSize;
     }
 
@@ -40,7 +50,7 @@ public class ThreadPoolMetadata {
         return keepAliveTime;
     }
 
-    public void setKeepAliveTime(long keepAliveTime) {
+    void setKeepAliveTime(long keepAliveTime) {
         this.keepAliveTime = keepAliveTime;
     }
 
@@ -48,7 +58,7 @@ public class ThreadPoolMetadata {
         return allowCoreThreadTimeout;
     }
 
-    public void setAllowCoreThreadTimeout(boolean allowCoreThreadTimeout) {
+    void setAllowCoreThreadTimeout(boolean allowCoreThreadTimeout) {
         this.allowCoreThreadTimeout = allowCoreThreadTimeout;
     }
 
@@ -56,7 +66,7 @@ public class ThreadPoolMetadata {
         return activeCount;
     }
 
-    public void setActiveCount(int activeCount) {
+    void setActiveCount(int activeCount) {
         this.activeCount = activeCount;
     }
 
@@ -64,7 +74,7 @@ public class ThreadPoolMetadata {
         return currentPoolSize;
     }
 
-    public void setCurrentPoolSize(int currentPoolSize) {
+    void setCurrentPoolSize(int currentPoolSize) {
         this.currentPoolSize = currentPoolSize;
     }
 
@@ -72,7 +82,7 @@ public class ThreadPoolMetadata {
         return largestPoolSize;
     }
 
-    public void setLargestPoolSize(int largestPoolSize) {
+    void setLargestPoolSize(int largestPoolSize) {
         this.largestPoolSize = largestPoolSize;
     }
 
@@ -80,7 +90,7 @@ public class ThreadPoolMetadata {
         return completedTaskCount;
     }
 
-    public void setCompletedTaskCount(long completedTaskCount) {
+    void setCompletedTaskCount(long completedTaskCount) {
         this.completedTaskCount = completedTaskCount;
     }
 
@@ -88,30 +98,55 @@ public class ThreadPoolMetadata {
         return waitingTaskCount;
     }
 
-    public void setWaitingTaskCount(int waitingTaskCount) {
+    void setWaitingTaskCount(int waitingTaskCount) {
         this.waitingTaskCount = waitingTaskCount;
+    }
+
+    public int getRejectedTaskCount() {
+        return rejectedTaskCount;
+    }
+
+    void setRejectedTaskCount(int rejectedTaskCount) {
+        this.rejectedTaskCount = rejectedTaskCount;
     }
 
     public long getAvgExecuteTime() {
         return avgExecuteTime;
     }
 
-    public void setAvgExecuteTime(long avgExecuteTime) {
+    void setAvgExecuteTime(long avgExecuteTime) {
         this.avgExecuteTime = avgExecuteTime;
     }
 
-    public RejectedExecutionHandler getRejectedExecutionHandler() {
-        return rejectedExecutionHandler;
+    public int getAlarmThreshold() {
+        return alarmThreshold;
     }
 
-    public void setRejectedExecutionHandler(RejectedExecutionHandler rejectedExecutionHandler) {
-        this.rejectedExecutionHandler = rejectedExecutionHandler;
+    void setAlarmThreshold(int alarmThreshold) {
+        this.alarmThreshold = alarmThreshold;
+    }
+
+    public int getOverAlarmThresholdTaskCount() {
+        return overAlarmThresholdTaskCount;
+    }
+
+    void setOverAlarmThresholdTaskCount(int overAlarmThresholdTaskCount) {
+        this.overAlarmThresholdTaskCount = overAlarmThresholdTaskCount;
+    }
+
+    public int getExceptionCount() {
+        return exceptionCount;
+    }
+
+    void setExceptionCount(int exceptionCount) {
+        this.exceptionCount = exceptionCount;
     }
 
     @Override
     public String toString() {
         return "ThreadPoolMetadata{" +
-                "corePoolSize=" + corePoolSize +
+                "poolName='" + poolName + '\'' +
+                ", corePoolSize=" + corePoolSize +
                 ", maxPoolSize=" + maxPoolSize +
                 ", keepAliveTime=" + keepAliveTime +
                 ", allowCoreThreadTimeout=" + allowCoreThreadTimeout +
@@ -120,8 +155,11 @@ public class ThreadPoolMetadata {
                 ", largestPoolSize=" + largestPoolSize +
                 ", completedTaskCount=" + completedTaskCount +
                 ", waitingTaskCount=" + waitingTaskCount +
+                ", rejectedTaskCount=" + rejectedTaskCount +
                 ", avgExecuteTime=" + avgExecuteTime +
-                ", rejectedExecutionHandler=" + rejectedExecutionHandler +
+                ", alarmThreshold=" + alarmThreshold +
+                ", overAlarmThresholdTaskCount=" + overAlarmThresholdTaskCount +
+                ", exceptionCount=" + exceptionCount +
                 '}';
     }
 }
