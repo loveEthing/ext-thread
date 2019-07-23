@@ -1,4 +1,4 @@
-package com.sunlight.thread;
+package com.github.loveething.thread;
 
 import java.util.concurrent.RejectedExecutionException;
 import java.util.concurrent.RejectedExecutionHandler;

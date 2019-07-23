@@ -4,7 +4,7 @@
 
   <modelVersion>4.0.0</modelVersion>
 
-  <groupId>com.sunlight</groupId>
+  <groupId>com.github.loveething</groupId>
   <artifactId>ext-thread</artifactId>
   <packaging>jar</packaging>
 

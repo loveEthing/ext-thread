@@ -1,4 +1,4 @@
-package com.sunlight.string;
+package com.github.loveething.string;
 
 import java.util.ArrayList;
 import java.util.List;

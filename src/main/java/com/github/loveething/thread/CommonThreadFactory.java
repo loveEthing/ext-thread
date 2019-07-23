@@ -1,4 +1,4 @@
-package com.sunlight.thread;
+package com.github.loveething.thread;
 
 import java.util.concurrent.ThreadFactory;
 import java.util.concurrent.atomic.AtomicInteger;

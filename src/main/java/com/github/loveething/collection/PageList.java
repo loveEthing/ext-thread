@@ -1,4 +1,4 @@
-package com.sunlight.collection;
+package com.github.loveething.collection;
 
 import java.util.Collections;
 import java.util.List;

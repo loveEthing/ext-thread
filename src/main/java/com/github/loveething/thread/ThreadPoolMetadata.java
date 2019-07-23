@@ -1,4 +1,4 @@
-package com.sunlight.thread;
+package com.github.loveething.thread;
 
 public class ThreadPoolMetadata {
 
